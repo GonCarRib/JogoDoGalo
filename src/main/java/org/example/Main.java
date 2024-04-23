@@ -21,7 +21,7 @@ public class Main {
         System.out.println();
         printarr(arr);
 
-        while (!vitoriaH() || !vitoriaV() ) {
+        while (!vitoriaH() && !vitoriaV() && !vitoriaD()) {
             int jogada = scan.nextInt();
             encPos(jogada);
             if (!jaExiste()) {
@@ -81,10 +81,10 @@ public class Main {
                 }
             }
             if (countX == 3) {
-                System.out.println("X Ganhou!");
+                System.out.println("X Ganhou na horizontal!");
                 return true;
             }else if (countO == 3){
-                System.out.println("O Ganhou!");
+                System.out.println("O Ganhou na horizontal!");
                 return true;
             }else{
             countX = 0;
@@ -105,17 +105,30 @@ public class Main {
                 if (jogo[j][i].equals("O")) {
                     countO = countO + 1;
                 }
+                else{
+                    countX = 0;
+                    countO = 0;
+                }
             }
+
         }
         if (countX == 3) {
-            System.out.println("X Ganhou!");
+            System.out.println("X Ganhou! na vertical");
             return true;
         }else if (countO == 3){
-            System.out.println("O Ganhou!");
+            System.out.println("O Ganhou! na vertical");
             return true;
-        }else{
-            countX = 0;
-            countO = 0;
+        }
+        return false;
+    }
+    public static boolean vitoriaD(){
+        if ((jogo[0][0].equals("X") && jogo[1][1].equals("X") && jogo[2][2].equals("X")) || (jogo[0][2].equals("X") && jogo[1][1].equals("X") && jogo[2][0].equals("X")) ){
+            System.out.println("X Ganhou na Diagonal!");
+            return true;
+        }
+        if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
+            System.out.println("O Ganhou na Diagonal!");
+            return true;
         }
         return false;
     }
