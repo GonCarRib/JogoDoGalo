@@ -1,10 +1,14 @@
 package org.example;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+
+    Map<String[][],Integer> arvore = new HashMap<>();
     static String[][] jogo = {{"-", "-", "-"}, {"-", "-", "-"}, {"-", "-", "-"}};
     static String[][] posicoes = {{"0", "1", "2"}, {"3", "4", "5"}, {"6", "7", "8"}};
     static boolean suavez;
@@ -13,10 +17,35 @@ public class Main {
     static int rown, coln;
 
     public static void main(String[] args) {
-        doisJogadores(jogo, posicoes, myObj);
+        umJogador(jogo, posicoes, myObj);
     }
 
     static void doisJogadores(String[][] arr, String[][] pos, Scanner scan) {
+        printarr(pos);
+        System.out.println();
+        printarr(arr);
+
+        while (!vitoriaH() && !vitoriaV() && !vitoriaD()) {
+            int jogada = scan.nextInt();
+            encPos(jogada);
+            if (!jaExiste()) {
+                if (suavez) {
+                    jogo[rown][coln] = "X";
+                    suavez = false;
+                } else {
+                    jogo[rown][coln] = "O";
+                    suavez = true;
+                }
+                printarr(pos);
+                System.out.println();
+                printarr(arr);
+            } else {
+                System.out.println("Numero ja foi selecionado");
+            }
+        }
+    }
+
+    static void umJogador(String[][] arr, String[][] pos, Scanner scan) {
         printarr(pos);
         System.out.println();
         printarr(arr);
