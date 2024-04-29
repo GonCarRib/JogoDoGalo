@@ -9,12 +9,21 @@ import java.util.Scanner;
 public class Main {
 
     Map<String[][],Integer> arvore = new HashMap<>();
-    static String[][] jogo = {{"-", "-", "-"}, {"-", "-", "-"}, {"-", "-", "-"}};
-    static String[][] posicoes = {{"0", "1", "2"}, {"3", "4", "5"}, {"6", "7", "8"}};
+    static String[][] jogo = {
+            {"-", "-", "-"},
+            {"-", "-", "-"},
+            {"-", "-", "-"}
+    };
+    static String[][] posicoes = {
+            {"0", "1", "2"},
+            {"3", "4", "5"},
+            {"6", "7", "8"}
+    };
     static boolean suavez;
     static int size = 2;
     static Scanner myObj = new Scanner(System.in);
     static int rown, coln;
+    static int turnos = 0;
 
     public static void main(String[] args) {
         umJogador(jogo, posicoes, myObj);
@@ -25,7 +34,7 @@ public class Main {
         System.out.println();
         printarr(arr);
 
-        while (!vitoriaH() && !vitoriaV() && !vitoriaD()) {
+        while (!vitoriaH()) {
             int jogada = scan.nextInt();
             encPos(jogada);
             if (!jaExiste()) {
@@ -50,7 +59,7 @@ public class Main {
         System.out.println();
         printarr(arr);
 
-        while (!vitoriaH() && !vitoriaV() && !vitoriaD()) {
+        while (!vitoriaH()) {
             int jogada = scan.nextInt();
             encPos(jogada);
             if (!jaExiste()) {
@@ -64,6 +73,7 @@ public class Main {
                 printarr(pos);
                 System.out.println();
                 printarr(arr);
+                turnos +=1;
             } else {
                 System.out.println("Numero ja foi selecionado");
             }
@@ -120,43 +130,26 @@ public class Main {
             countO = 0;
             }
         }
-        return false;
-    }
-
-    public static boolean vitoriaV() {
-        int countX = 0;
-        int countO = 0;
         for (int i = 0; i <= size; ++i) {
-            for (int j = 0; j <= size; ++j) {
-                if (jogo[j][i].equals("X")) {
-                    countX = countX + 1;
+                if (jogo[0][i].equals("X") && jogo[1][i].equals("X") && jogo[2][i].equals("X")) {
+                    System.out.println("X Ganhou! na vertical");
+                    return true;
                 }
-                if (jogo[j][i].equals("O")) {
-                    countO = countO + 1;
+                if (jogo[0][i].equals("O") && jogo[1][i].equals("O") && jogo[2][i].equals("O")) {
+                    System.out.println("O Ganhou! na vertical");
+                    return true;
                 }
-                else{
-                    countX = 0;
-                    countO = 0;
-                }
-            }
-
         }
-        if (countX == 3) {
-            System.out.println("X Ganhou! na vertical");
-            return true;
-        }else if (countO == 3){
-            System.out.println("O Ganhou! na vertical");
-            return true;
-        }
-        return false;
-    }
-    public static boolean vitoriaD(){
         if ((jogo[0][0].equals("X") && jogo[1][1].equals("X") && jogo[2][2].equals("X")) || (jogo[0][2].equals("X") && jogo[1][1].equals("X") && jogo[2][0].equals("X")) ){
             System.out.println("X Ganhou na Diagonal!");
             return true;
         }
         if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
             System.out.println("O Ganhou na Diagonal!");
+            return true;
+        }
+        if (turnos > 8){
+            System.out.println("Empate!");
             return true;
         }
         return false;
