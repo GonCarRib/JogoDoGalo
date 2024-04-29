@@ -34,7 +34,7 @@ public class Main {
         System.out.println();
         printarr(arr);
 
-        while (!vitoriaH()) {
+        while (!fimDeJogo()) {
             int jogada = scan.nextInt();
             encPos(jogada);
             if (!jaExiste()) {
@@ -59,7 +59,7 @@ public class Main {
         System.out.println();
         printarr(arr);
 
-        while (!vitoriaH()) {
+        while (!fimDeJogo()) {
             int jogada = scan.nextInt();
             encPos(jogada);
             if (!jaExiste()) {
@@ -107,27 +107,15 @@ public class Main {
         }
     }
 
-    public static boolean vitoriaH() {
-        int countX = 0;
-        int countO = 0;
+    public static boolean fimDeJogo() {
         for (int i = 0; i <= size; ++i) {
-            for (int j = 0; j <= size; ++j) {
-                if (jogo[i][j].equals("X")) {
-                    countX = countX + 1;
-                }
-                if (jogo[i][j].equals("O")) {
-                    countO = countO + 1;
-                }
+            if (jogo[i][0].equals("X") && jogo[i][1].equals("X") && jogo[i][2].equals("X")) {
+                System.out.println("X Ganhou! na vertical");
+                return true;
             }
-            if (countX == 3) {
-                System.out.println("X Ganhou na horizontal!");
+            if (jogo[i][0].equals("O") && jogo[i][1].equals("O") && jogo[i][2].equals("O")) {
+                System.out.println("O Ganhou! na vertical");
                 return true;
-            }else if (countO == 3){
-                System.out.println("O Ganhou na horizontal!");
-                return true;
-            }else{
-            countX = 0;
-            countO = 0;
             }
         }
         for (int i = 0; i <= size; ++i) {
@@ -154,4 +142,34 @@ public class Main {
         }
         return false;
     }
+
+    public static int valorJogada() {
+        //AI = X
+        for (int i = 0; i <= size; ++i) {
+            if (jogo[i][0].equals("X") && jogo[i][1].equals("X") && jogo[i][2].equals("X")) {
+                System.out.println("X Ganhou! na vertical");
+                return 10;
+            }
+            if (jogo[i][0].equals("O") && jogo[i][1].equals("O") && jogo[i][2].equals("O")) {
+                System.out.println("O Ganhou! na vertical");
+                return -10;
+            }
+        }
+        for (int i = 0; i <= size; ++i) {
+            if (jogo[0][i].equals("X") && jogo[1][i].equals("X") && jogo[2][i].equals("X")) {
+                return 10;
+            }
+            if (jogo[0][i].equals("O") && jogo[1][i].equals("O") && jogo[2][i].equals("O")) {
+                return -10;
+            }
+        }
+        if ((jogo[0][0].equals("X") && jogo[1][1].equals("X") && jogo[2][2].equals("X")) || (jogo[0][2].equals("X") && jogo[1][1].equals("X") && jogo[2][0].equals("X")) ){
+            return 10;
+        }
+        if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
+            return -10;
+        }
+        return 0;
+    }
+
 }
