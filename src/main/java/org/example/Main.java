@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -19,7 +20,8 @@ public class Main {
             {"3", "4", "5"},
             {"6", "7", "8"}
     };
-    static boolean suavez;
+    static boolean vezX;
+    static boolean aiX;
     static int size = 2;
     static Scanner myObj = new Scanner(System.in);
     static int rown, coln;
@@ -38,12 +40,12 @@ public class Main {
             int jogada = scan.nextInt();
             encPos(jogada);
             if (!jaExiste()) {
-                if (suavez) {
+                if (vezX) {
                     jogo[rown][coln] = "X";
-                    suavez = false;
+                    vezX = false;
                 } else {
                     jogo[rown][coln] = "O";
-                    suavez = true;
+                    vezX = true;
                 }
                 printarr(pos);
                 System.out.println();
@@ -63,12 +65,12 @@ public class Main {
             int jogada = scan.nextInt();
             encPos(jogada);
             if (!jaExiste()) {
-                if (suavez) {
+                if (vezX) {
                     jogo[rown][coln] = "X";
-                    suavez = false;
+                    vezX = false;
                 } else {
                     jogo[rown][coln] = "O";
-                    suavez = true;
+                    vezX = true;
                 }
                 printarr(pos);
                 System.out.println();
@@ -143,8 +145,10 @@ public class Main {
         return false;
     }
 
-    public static int valorJogada() {
-        //AI = X
+
+    //vai indicar a AI se ela vai perder ou ganhar na proxima jogada
+    public static int valorJogada(String[][] jogo) {
+        if (aiX){ //Se a AI for o jogador X
         for (int i = 0; i <= size; ++i) {
             if (jogo[i][0].equals("X") && jogo[i][1].equals("X") && jogo[i][2].equals("X")) {
                 System.out.println("X Ganhou! na vertical");
@@ -169,7 +173,58 @@ public class Main {
         if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
             return -10;
         }
+        }
+        else {  //Caso AI seja O
+            for (int i = 0; i <= size; ++i) {
+                if (jogo[i][0].equals("X") && jogo[i][1].equals("X") && jogo[i][2].equals("X")) {
+                    System.out.println("X Ganhou! na vertical");
+                    return -10;
+                }
+                if (jogo[i][0].equals("O") && jogo[i][1].equals("O") && jogo[i][2].equals("O")) {
+                    System.out.println("O Ganhou! na vertical");
+                    return 10;
+                }
+            }
+            for (int i = 0; i <= size; ++i) {
+                if (jogo[0][i].equals("X") && jogo[1][i].equals("X") && jogo[2][i].equals("X")) {
+                    return -10;
+                }
+                if (jogo[0][i].equals("O") && jogo[1][i].equals("O") && jogo[2][i].equals("O")) {
+                    return 10;
+                }
+            }
+            if ((jogo[0][0].equals("X") && jogo[1][1].equals("X") && jogo[2][2].equals("X")) || (jogo[0][2].equals("X") && jogo[1][1].equals("X") && jogo[2][0].equals("X")) ){
+                return -10;
+            }
+            if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
+                return 10;
+            }
+        }
         return 0;
     }
+
+
+    public void minMax(String[][] atual){
+        LinkedList<String[][]> arvore = new LinkedList<>();
+        String[][] temp;
+        arvore.add(atual);
+        boolean jogador; //vai saber se precisa minimizar ou maximizar
+        int max = valorJogada(atual);
+        for (int i = 0; i <= size; ++i) {
+            for (int j = 0; j <= size; ++j) {
+                temp = atual;
+                if (temp[i][j].equals("-") && vezX){
+                    temp[i][j] = "x";
+                } else if (temp[i][j].equals("-") && !vezX) {
+                    temp[i][j] = "O";
+                }
+                if (!arvore.contains(temp)){
+                    arvore.add(temp);
+                }
+            }
+        }
+
+    }
+
 
 }
