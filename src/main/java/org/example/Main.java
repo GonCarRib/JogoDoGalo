@@ -27,7 +27,9 @@ public class Main {
     static int rown, coln;
     static int turnos = 0;
 
+
     public static void main(String[] args) {
+        minMax(jogo);
         umJogador(jogo, posicoes, myObj);
     }
 
@@ -35,6 +37,7 @@ public class Main {
         printarr(pos);
         System.out.println();
         printarr(arr);
+
 
         while (!fimDeJogo()) {
             int jogada = scan.nextInt();
@@ -202,9 +205,19 @@ public class Main {
         }
         return 0;
     }
+    private static String[][] transformar(String[][] jogo) {
+        String[][] temp = {{"-", "-", "-"},
+        {"-", "-", "-"},
+        {"-", "-", "-"}};
+        for (int i = 0; i <= 2; ++i) {
+            for (int j = 0; j <= 2; ++j) {
+                temp[i][j] = jogo[i][j];
+            }
+        }
+        return temp;
+    }
 
-
-    public void minMax(String[][] atual){
+    public static void minMax(String[][] atual){
         LinkedList<String[][]> arvore = new LinkedList<>();
         String[][] temp;
         arvore.add(atual);
@@ -212,14 +225,24 @@ public class Main {
         int max = valorJogada(atual);
         for (int i = 0; i <= size; ++i) {
             for (int j = 0; j <= size; ++j) {
-                temp = atual;
+                temp = transformar(atual);
                 if (temp[i][j].equals("-") && vezX){
                     temp[i][j] = "x";
-                } else if (temp[i][j].equals("-") && !vezX) {
-                    temp[i][j] = "O";
+                    if (!arvore.contains(temp)){
+                        arvore.add(temp);
+                        printarr(temp);
+                        vezX = false;
+
+                    }
                 }
-                if (!arvore.contains(temp)){
-                    arvore.add(temp);
+                temp = transformar(atual);
+                if (temp[i][j].equals("-") && !vezX) {
+                    temp[i][j] = "O";
+                    if (!arvore.contains(temp)){
+                        arvore.add(temp);
+                        printarr(temp);
+                        vezX = true;
+                    }
                 }
             }
         }
