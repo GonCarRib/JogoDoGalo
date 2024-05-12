@@ -60,10 +60,7 @@ public class Main {
         Integer temp = null;
         while (temp == null) {
 
-            printarr(pos);
-            System.out.println();
-            printarr(arr);
-            System.out.println();
+
 
             temp = fimDeJogo();
 
@@ -79,7 +76,12 @@ public class Main {
             } else {
                 bestMove();
                 vezX = true;
+
             }
+            printarr(pos);
+            System.out.println();
+            printarr(arr);
+            System.out.println();
             turnos = turnos +1 ;
         }
     }
@@ -160,6 +162,40 @@ public class Main {
         return null;
     }
 
+    public static Integer verificarVitoria() {
+        // 1 = O Ganhou
+        // 0 = Empate
+        // -1 = X Ganhou
+        for (int i = 0; i <= size; ++i) {
+            if (jogo[0][i].equals("X") && jogo[1][i].equals("X") && jogo[2][i].equals("X")) {
+                return -1;
+            }
+            if (jogo[0][i].equals("O") && jogo[1][i].equals("O") && jogo[2][i].equals("O")) {
+                return 1;
+            }
+        }
+
+        for (int i = 0; i <= size; ++i) {
+            if (jogo[i][0].equals("X") && jogo[i][1].equals("X") && jogo[i][2].equals("X")) {
+                return -1;
+            }
+            if (jogo[i][0].equals("O") && jogo[i][1].equals("O") && jogo[i][2].equals("O")) {
+                return 1;
+            }
+        }
+
+        if ((jogo[0][0].equals("X") && jogo[1][1].equals("X") && jogo[2][2].equals("X")) || (jogo[0][2].equals("X") && jogo[1][1].equals("X") && jogo[2][0].equals("X")) ){
+            return -1;
+        }
+        if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
+            return 1;
+        }
+        if (turnos > 8){
+            return 0;
+        }
+        return null;
+    }
+
 
 
     public static void bestMove(){
@@ -186,7 +222,7 @@ public class Main {
 
 
     public static int minimax(String[][] atual, int depth, boolean isMaxi){
-        Integer resultado = fimDeJogo();
+        Integer resultado = verificarVitoria();
 
         if (resultado != null) {
             return resultado;
