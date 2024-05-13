@@ -25,7 +25,6 @@ public class Main {
 
 
     public static void main(String[] args) {
-        //minMax(jogo);
         umJogador(jogo, posicoes, myObj);
     }
 
@@ -57,33 +56,39 @@ public class Main {
     }
 
     static void umJogador(String[][] arr, String[][] pos, Scanner scan) {
-        Integer temp = null;
-        while (temp == null) {
-
+        Integer temp;
+        do
+        {
 
 
             temp = fimDeJogo();
 
-            if (vezX) {
+            if (temp == null)
+            {
+                if (vezX)
+                {
                 int jogada = scan.nextInt();
                 encPos(jogada);
-                if (!jaExiste()) {
+                if (!jaExiste())
+                {
                     jogo[rown][coln] = "X";
                     vezX = false;
-                } else {
+                } else
+                {
                     System.out.println("Número já foi selecionado");
                 }
-            } else {
+            } else
+            {
                 bestMove();
                 vezX = true;
-
             }
-            printarr(pos);
-            System.out.println();
-            printarr(arr);
-            System.out.println();
-            turnos = turnos +1 ;
-        }
+                printarr(pos);
+                System.out.println();
+                printarr(arr);
+                System.out.println();
+                turnos = turnos +1 ;
+            }
+        }while (temp == null);
     }
 
     static void printarr(String[][] arr) {
@@ -112,15 +117,6 @@ public class Main {
             }
         }
     }
-    /*private static String[][] transformar(String[][] jogo) {
-        String[][] temp = {{"-", "-", "-"},{"-", "-", "-"},{"-", "-", "-"}};
-        for (int i = 0; i <= 2; ++i) {
-            for (int j = 0; j <= 2; ++j) {
-                temp[i][j] = jogo[i][j];
-            }
-        }
-        return temp;
-    }*/
 
     public static Integer fimDeJogo() {
         // 1 = O ganhou
@@ -196,8 +192,6 @@ public class Main {
         return null;
     }
 
-
-
     public static void bestMove(){
         int bestScore = -10000;
         rown = -1;
@@ -220,14 +214,12 @@ public class Main {
         jogo[rown][coln] = "O";
     }
 
-
     public static int minimax(String[][] atual, int depth, boolean isMaxi){
         Integer resultado = verificarVitoria();
 
         if (resultado != null) {
             return resultado;
         }
-
         int bestScore;
         if(isMaxi){
             bestScore = -11;
@@ -261,92 +253,4 @@ public class Main {
         }
         return bestScore;
     }
-/*
-    public static int valorJogada(String[][] jogo) {
-        if (aiX)
-        {
-            for (int i = 0; i <= size; ++i) {
-                if (jogo[0][i].equals("X") && jogo[1][i].equals("X") && jogo[2][i].equals("X")) {
-                    return 10;
-                }
-                if (jogo[0][i].equals("O") && jogo[1][i].equals("O") && jogo[2][i].equals("O")) {
-                    return -10;
-                }
-            }
-            for (int i = 0; i <= size; ++i) {
-                if (jogo[i][0].equals("X") && jogo[i][1].equals("X") && jogo[i][2].equals("X")) {
-                    return 10;
-                }
-                if (jogo[i][0].equals("O") && jogo[i][1].equals("O") && jogo[i][2].equals("O")) {
-                    return -10;
-                }
-            }
-            if ((jogo[0][0].equals("X") && jogo[1][1].equals("X") && jogo[2][2].equals("X")) || (jogo[0][2].equals("X") && jogo[1][1].equals("X") && jogo[2][0].equals("X")) ){
-                return 10;
-            }
-            if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
-                return -10;
-            }
-        }
-        else
-        {
-            for (int i = 0; i <= size; ++i) {
-                if (jogo[0][i].equals("X") && jogo[1][i].equals("X") && jogo[2][i].equals("X")) {
-                    return -10;
-                }
-                if (jogo[0][i].equals("O") && jogo[1][i].equals("O") && jogo[2][i].equals("O")) {
-                    return 10;
-                }
-            }
-            for (int i = 0; i <= size; ++i) {
-                if (jogo[i][0].equals("X") && jogo[i][1].equals("X") && jogo[i][2].equals("X")) {
-                    return -10;
-                }
-                if (jogo[i][0].equals("O") && jogo[i][1].equals("O") && jogo[i][2].equals("O")) {
-                    return 10;
-                }
-            }
-            if ((jogo[0][0].equals("X") && jogo[1][1].equals("X") && jogo[2][2].equals("X")) || (jogo[0][2].equals("X") && jogo[1][1].equals("X") && jogo[2][0].equals("X")) ){
-                return -10;
-            }
-            if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
-                return 10;
-            }
-        }
-        return 0;
-    }
-
-
-    public static void minMax(String[][] atual){
-        LinkedList<String[][]> arvore = new LinkedList<>();
-        String[][] temp;
-        arvore.add(atual);
-        boolean jogador; //vai saber se precisa minimizar ou maximizar
-        int max = valorJogada(atual);
-        for (int i = 0; i <= size; ++i) {
-            for (int j = 0; j <= size; ++j) {
-                temp = transformar(atual);
-                if (temp[i][j].equals("-") && vezX){
-                    temp[i][j] = "x";
-                    if (!arvore.contains(temp)){
-                        arvore.add(temp);
-                        printarr(temp);
-                        vezX = false;
-
-                    }
-                }
-                temp = transformar(atual);
-                if (temp[i][j].equals("-") && !vezX) {
-                    temp[i][j] = "O";
-                    if (!arvore.contains(temp)){
-                        arvore.add(temp);
-                        printarr(temp);
-                        vezX = true;
-                    }
-                }
-            }
-        }
-
-    }
-*/
 }
