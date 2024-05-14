@@ -68,7 +68,6 @@ public class Main {
                 {
                     jogo[rown][coln] = "X";
                     vezX = false;
-                    turnos = turnos +1 ;
                 } else
                 {
                     System.out.println("Número já foi selecionado");
@@ -78,7 +77,6 @@ public class Main {
                 //bestMove();
                 moveAlpha();
                 vezX = true;
-                turnos = turnos +1 ;
             }
                 printarr(pos);
                 System.out.println();
@@ -87,7 +85,7 @@ public class Main {
 
             }
         }while (temp == null);
-        System.out.println(memoriaNodeChamado);
+        System.out.println("Número de nodes: "+ memoriaNodeChamado);
     }
 
     static void printarr(String[][] arr) {
@@ -150,10 +148,19 @@ public class Main {
             System.out.println("O Ganhou na diagonal!");
             return 1;
         }
-        if (turnos > 8){
-            System.out.println("Empate!");
-            return 0;
+        Integer count = 0;
+        for (int i = 0; i <= size; ++i) {
+            for (int j = 0; j <= size; ++j) {
+                if (!jogo[i][j].equals("-")){
+                    count++;
+                    if (count > 8){
+                        System.out.println("Empate!");
+                        return 0;
+                    }
+                }
+            }
         }
+
         return null;
     }
 
@@ -297,7 +304,9 @@ public class Main {
                         if(score > alpha){
                             alpha = score;
                         }
-                        if (beta <= alpha){break;}
+                        if (beta <= alpha){
+                            break;
+                        }
                     }
                 }
             }
@@ -316,7 +325,9 @@ public class Main {
                         if(score < beta){
                             beta = score;
                         }
-                        if (beta <= alpha){break;}
+                        if (beta <= alpha){
+                            break;
+                        }
                     }
                 }
             }
