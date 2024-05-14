@@ -192,9 +192,19 @@ public class Main {
         if ((jogo[0][0].equals("O") && jogo[1][1].equals("O") && jogo[2][2].equals("O")) || (jogo[0][2].equals("O") && jogo[1][1].equals("O") && jogo[2][0].equals("O"))){
             return 1;
         }
-        if (turnos > 8){
-            return 0;
+
+        Integer count = 0;
+        for (int i = 0; i <= size; ++i) {
+            for (int j = 0; j <= size; ++j) {
+                if (!jogo[i][j].equals("-")){
+                    count++;
+                    if (count > 8){
+                        return 0;
+                    }
+                }
+            }
         }
+
         return null;
     }
 
@@ -300,16 +310,21 @@ public class Main {
                         atual [i][j] = "-";
                         if (score > bestScore){
                             bestScore = score;
+                            System.out.println(score);
                         }
                         if(score > alpha){
                             alpha = score;
+                            System.out.println(alpha);
                         }
                         if (beta <= alpha){
-                            break;
+                            System.out.println(bestScore);
+                            return bestScore;
+
                         }
                     }
                 }
             }
+            System.out.println(bestScore);
             return bestScore;
         }else {
             bestScore = 11;
@@ -326,7 +341,7 @@ public class Main {
                             beta = score;
                         }
                         if (beta <= alpha){
-                            break;
+                            return bestScore;
                         }
                     }
                 }
