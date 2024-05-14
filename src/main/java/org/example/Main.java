@@ -73,6 +73,7 @@ public class Main {
                 {
                     jogo[rown][coln] = "X";
                     vezX = false;
+                    turnos = turnos +1 ;
                 } else
                 {
                     System.out.println("Número já foi selecionado");
@@ -81,12 +82,13 @@ public class Main {
             {
                 bestMove();
                 vezX = true;
+                turnos = turnos +1 ;
             }
                 printarr(pos);
                 System.out.println();
                 printarr(arr);
                 System.out.println();
-                turnos = turnos +1 ;
+
             }
         }while (temp == null);
     }
