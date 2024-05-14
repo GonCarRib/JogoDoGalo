@@ -1,9 +1,6 @@
 package org.example;
-import java.util.LinkedList;
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
     static String[][] jogo = {
@@ -23,7 +20,6 @@ public class Main {
     static int rown, coln;
     static int turnos = 0;
     static int memoriaNodeChamado;
-
 
     public static void main(String[] args) {
         umJogador(jogo, posicoes, myObj);
@@ -60,8 +56,6 @@ public class Main {
         Integer temp;
         do
         {
-
-
             temp = fimDeJogo();
 
             if (temp == null)
@@ -281,13 +275,13 @@ public class Main {
         return bestScore;
     }
     public static int alphaBeta(String[][] atual, int depth, Integer alpha, Integer beta,boolean isMaxi){
-
         memoriaNodeChamado ++;
         Integer resultado = verificarVitoria();
-        if (resultado != null) {
 
+        if (resultado != null) {
             return resultado;
         }
+
         int bestScore;
         if(isMaxi){
             bestScore = -11;
@@ -300,6 +294,10 @@ public class Main {
                         if (score > bestScore){
                             bestScore = score;
                         }
+                        if(score > alpha){
+                            alpha = score;
+                        }
+                        if (beta <= alpha){break;}
                     }
                 }
             }
@@ -315,6 +313,10 @@ public class Main {
                         if (score < bestScore){
                             bestScore = score;
                         }
+                        if(score < beta){
+                            beta = score;
+                        }
+                        if (beta <= alpha){break;}
                     }
                 }
             }
