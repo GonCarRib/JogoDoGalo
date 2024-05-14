@@ -22,6 +22,7 @@ public class Main {
     static Scanner myObj = new Scanner(System.in);
     static int rown, coln;
     static int turnos = 0;
+    static int memoriaNodeChamado;
 
 
     public static void main(String[] args) {
@@ -80,7 +81,8 @@ public class Main {
                 }
             } else
             {
-                bestMove();
+                //bestMove();
+                moveAlpha();
                 vezX = true;
                 turnos = turnos +1 ;
             }
@@ -91,6 +93,7 @@ public class Main {
 
             }
         }while (temp == null);
+        System.out.println(memoriaNodeChamado);
     }
 
     static void printarr(String[][] arr) {
@@ -215,11 +218,33 @@ public class Main {
         }
         jogo[rown][coln] = "O";
     }
+    public static void moveAlpha(){
+        int bestScore = -10000;
+        rown = -1;
+        coln = -1;
+
+        for (int i = 0; i <= size; ++i) {
+            for (int j = 0; j <= size; ++j) {
+                if (jogo[i][j].equals("-")){
+                    jogo[i][j] = "O";
+                    int score = alphaBeta(jogo,0, -11, 11,false);
+                    jogo[i][j] = "-";
+                    if(score > bestScore){
+                        bestScore = score;
+                        rown = i;
+                        coln = j;
+                    }
+                }
+            }
+        }
+        jogo[rown][coln] = "O";
+    }
 
     public static int minimax(String[][] atual, int depth, boolean isMaxi){
+        memoriaNodeChamado ++;
         Integer resultado = verificarVitoria();
-
         if (resultado != null) {
+
             return resultado;
         }
         int bestScore;
@@ -245,6 +270,47 @@ public class Main {
                     if (atual[i][j].equals("-")){
                         atual [i][j] = "X";
                         int score = minimax(atual,depth+1,true);
+                        atual [i][j] = "-";
+                        if (score < bestScore){
+                            bestScore = score;
+                        }
+                    }
+                }
+            }
+        }
+        return bestScore;
+    }
+    public static int alphaBeta(String[][] atual, int depth, Integer alpha, Integer beta,boolean isMaxi){
+
+        memoriaNodeChamado ++;
+        Integer resultado = verificarVitoria();
+        if (resultado != null) {
+
+            return resultado;
+        }
+        int bestScore;
+        if(isMaxi){
+            bestScore = -11;
+            for (int i = 0; i <= size; ++i) {
+                for (int j = 0; j <= size; ++j) {
+                    if (atual[i][j].equals("-")){
+                        atual [i][j] = "O";
+                        int score = alphaBeta(atual,depth+1,alpha, beta, false);
+                        atual [i][j] = "-";
+                        if (score > bestScore){
+                            bestScore = score;
+                        }
+                    }
+                }
+            }
+            return bestScore;
+        }else {
+            bestScore = 11;
+            for (int i = 0; i <= size; ++i) {
+                for (int j = 0; j <= size; ++j) {
+                    if (atual[i][j].equals("-")){
+                        atual [i][j] = "X";
+                        int score = alphaBeta(atual,depth+1,alpha, beta, true);
                         atual [i][j] = "-";
                         if (score < bestScore){
                             bestScore = score;
