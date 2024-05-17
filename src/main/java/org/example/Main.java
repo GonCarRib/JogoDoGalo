@@ -22,21 +22,45 @@ public class Main {
     static boolean aiMinMax = false;
 
     public static void main(String[] args) {
-        System.out.println("[1] Um jogador" +'\n'+ "[2] Dois Jogadores");
-        int var = myObj.nextInt();
-        if (var == 1){
-            System.out.println("[1] Jogador joga primeiro" +'\n'+ "[2] Ai Joga primeiro");
-            int var2 = myObj.nextInt();
-            if (var2 == 1){
-                vezX = true;
+        int var;
+        while (true){
+            System.out.println("[1] Um jogador" + '\n' + "[2] Dois Jogadores");
+            var = myObj.nextInt();
+            if (var == 1) {
+                while (true){
+                    System.out.println("[1] MinMax" + '\n' + "[2] AlphaBeta");
+                    var = myObj.nextInt();
+                    if (var == 1) {
+                        aiMinMax = true;
+                        break;
+                    } else if (var == 2) {
+                        aiMinMax = false;
+                        break;
+                    }else {
+                        System.out.println("Comando Invalido");
+                    }
+                }
+                while (true) {
+                    System.out.println("[1] Jogador joga primeiro" + '\n' + "[2] Ai Joga primeiro");
+                    var = myObj.nextInt();
+                    if (var == 1) {
+                        vezX = true;
+                        break;
+                    } else if (var == 2) {
+                        vezX = false;
+                        break;
+                    }else {
+                        System.out.println("Comando Invalido");
+                    }
+                }
+                umJogador(jogo, posicoes, myObj);
+                break;
+            } else if (var == 2) {
+                doisJogadores(jogo, posicoes, myObj);
+                break;
+            } else {
+                System.out.println("Comando Invalido");
             }
-            umJogador(jogo, posicoes, myObj);
-        }
-        else if (var == 2){
-            doisJogadores(jogo, posicoes, myObj);
-        }
-        else{
-            System.out.println("Comando Invalido");
         }
     }
 
@@ -77,6 +101,10 @@ public class Main {
             {
                 if (vezX)
                 {
+                    printarr(pos);
+                    System.out.println();
+                    printarr(arr);
+                    System.out.println();
                 int jogada = scan.nextInt();
                 encPos(jogada);
                 if (!jaExiste())
