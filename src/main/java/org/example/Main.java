@@ -18,11 +18,26 @@ public class Main {
     static int size = 2;
     static Scanner myObj = new Scanner(System.in);
     static int rown, coln;
-    static int turnos = 0;
     static int memoriaNodeChamado;
+    static boolean aiMinMax = false;
 
     public static void main(String[] args) {
-        umJogador(jogo, posicoes, myObj);
+        System.out.println("[1] Um jogador" +'\n'+ "[2] Dois Jogadores");
+        int var = myObj.nextInt();
+        if (var == 1){
+            System.out.println("[1] Jogador joga primeiro" +'\n'+ "[2] Ai Joga primeiro");
+            int var2 = myObj.nextInt();
+            if (var2 == 1){
+                vezX = true;
+            }
+            umJogador(jogo, posicoes, myObj);
+        }
+        else if (var == 2){
+            doisJogadores(jogo, posicoes, myObj);
+        }
+        else{
+            System.out.println("Comando Invalido");
+        }
     }
 
     static void doisJogadores(String[][] arr, String[][] pos, Scanner scan) {
@@ -74,8 +89,8 @@ public class Main {
                 }
             } else
             {
-                //bestMove();
-                moveAlpha();
+                if (aiMinMax){bestMove();}
+                else {moveAlpha();}
                 vezX = true;
             }
                 printarr(pos);
@@ -217,7 +232,7 @@ public class Main {
             for (int j = 0; j <= size; ++j) {
                 if (jogo[i][j].equals("-")){
                     jogo[i][j] = "O";
-                    int score = minimax(jogo,0,false);
+                    int score = minmax(jogo,0,false);
                     jogo[i][j] = "-";
                     if(score > bestScore){
                         bestScore = score;
@@ -251,7 +266,7 @@ public class Main {
         jogo[rown][coln] = "O";
     }
 
-    public static int minimax(String[][] atual, int depth, boolean isMaxi){
+    public static int minmax(String[][] atual, int depth, boolean isMaxi){
         memoriaNodeChamado ++;
         Integer resultado = verificarVitoria();
         if (resultado != null) {
@@ -265,7 +280,7 @@ public class Main {
                 for (int j = 0; j <= size; ++j) {
                     if (atual[i][j].equals("-")){
                         atual [i][j] = "O";
-                        int score = minimax(atual,depth+1,false);
+                        int score = minmax(atual,depth+1,false);
                         atual [i][j] = "-";
                         if (score > bestScore){
                             bestScore = score;
@@ -280,7 +295,7 @@ public class Main {
                 for (int j = 0; j <= size; ++j) {
                     if (atual[i][j].equals("-")){
                         atual [i][j] = "X";
-                        int score = minimax(atual,depth+1,true);
+                        int score = minmax(atual,depth+1,true);
                         atual [i][j] = "-";
                         if (score < bestScore){
                             bestScore = score;
@@ -310,21 +325,20 @@ public class Main {
                         atual [i][j] = "-";
                         if (score > bestScore){
                             bestScore = score;
-                            System.out.println(score);
+
                         }
                         if(score > alpha){
                             alpha = score;
-                            System.out.println(alpha);
+
                         }
                         if (beta <= alpha){
-                            System.out.println(bestScore);
                             return bestScore;
 
                         }
                     }
                 }
             }
-            System.out.println(bestScore);
+
             return bestScore;
         }else {
             bestScore = 11;
