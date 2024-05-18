@@ -30,3 +30,87 @@ Ao receber os valores melhor jogada o algoritimo ira, dependendo se o algoritimo
 Exemplo: Caso o algoritimo esteja maximizando, score ira se tornar o maior valor obtido pelo metodo que verifica vitorias, caso o valor de score seja maior que alpha, o valor de alpha sera o mesmo valor de score e finalmente, se o valor de Beta for menor ou igual o de alpha o algoritimo achou a melhor jogada.
 Em contraste se o algoritimo estiver minimizando, score recebe o valor de bestscore caso o valor de bestscore seja menor que o de score, caso o valor de beta seja menor que o de score, beta ira receber o valor de score e finalmente caso beta seja menor ou igual a alpha, o algoritimo achou a melhor jogada.
 
+# Testes de memoria 
+# Jogador primeiro
+## Ordem das jogadas: 4 2 3 1 8
+### Min Max
+```
+O X X 
+X X O
+O O X
+
+Empate!
+Número de nodes: 56490
+```
+### AlphaBeta
+```
+O X X 
+X X O
+O O X
+
+Empate!
+Número de nodes: 6519
+```
+
+## Ordem das jogadas: 1 4 5 6 8
+### Min Max
+```
+O X O 
+O X X
+X O X
+
+Empate!
+Número de nodes: 65008
+```
+### AlphaBeta
+```
+O X O 
+O X X 
+X O X 
+
+Empate!
+Número de nodes: 6476
+```
+
+# Ai primeiro
+## Ordem das jogadas: 4 2 3 7
+### Min Max
+```
+O O X 
+X X O 
+O X O 
+
+Empate!
+Número de nodes: 557487
+```
+### AlphaBeta
+```
+O O X 
+X X O 
+O X O 
+
+Empate!
+Número de nodes: 32339
+```
+
+## Ordem das jogadas: 3 2 7
+### Min Max
+```
+O O X 
+X O - 
+- X O 
+
+O Ganhou na diagonal!
+Número de nodes: 558432
+```
+### AlphaBeta
+```
+O O X 
+X O - 
+- X O 
+
+O Ganhou na diagonal!
+Número de nodes: 32528
+```
+
+
