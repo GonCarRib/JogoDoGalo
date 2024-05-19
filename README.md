@@ -31,9 +31,9 @@ Exemplo: Caso o algoritimo esteja maximizando, score ira se tornar o maior valor
 Em contraste se o algoritimo estiver minimizando, score recebe o valor de bestscore caso o valor de bestscore seja menor que o de score, caso o valor de beta seja menor que o de score, beta ira receber o valor de score e finalmente caso beta seja menor ou igual a alpha, o algoritimo achou a melhor jogada.
 
 # Testes de memoria 
-# Jogador primeiro
-## Ordem das jogadas: 4 2 3 1 8
-### Min Max
+## Jogador primeiro
+### Ordem das jogadas: 4 2 3 1 8
+#### Min Max
 ```
 O X X 
 X X O
@@ -42,7 +42,7 @@ O O X
 Empate!
 Número de nodes: 56490
 ```
-### AlphaBeta
+#### AlphaBeta
 ```
 O X X 
 X X O
@@ -52,8 +52,8 @@ Empate!
 Número de nodes: 6519
 ```
 
-## Ordem das jogadas: 1 4 5 6 8
-### Min Max
+### Ordem das jogadas: 1 4 5 6 8
+#### Min Max
 ```
 O X O 
 O X X
@@ -62,7 +62,7 @@ X O X
 Empate!
 Número de nodes: 65008
 ```
-### AlphaBeta
+#### AlphaBeta
 ```
 O X O 
 O X X 
@@ -72,9 +72,9 @@ Empate!
 Número de nodes: 6476
 ```
 
-# Ai primeiro
-## Ordem das jogadas: 4 2 3 7
-### Min Max
+## Ai primeiro
+### Ordem das jogadas: 4 2 3 7
+#### Min Max
 ```
 O O X 
 X X O 
@@ -83,7 +83,7 @@ O X O
 Empate!
 Número de nodes: 557487
 ```
-### AlphaBeta
+#### AlphaBeta
 ```
 O O X 
 X X O 
@@ -93,8 +93,8 @@ Empate!
 Número de nodes: 32339
 ```
 
-## Ordem das jogadas: 3 2 7
-### Min Max
+### Ordem das jogadas: 3 2 7
+#### Min Max
 ```
 O O X 
 X O - 
@@ -103,7 +103,7 @@ X O -
 O Ganhou na diagonal!
 Número de nodes: 558432
 ```
-### AlphaBeta
+#### AlphaBeta
 ```
 O O X 
 X O - 
@@ -114,3 +114,9 @@ Número de nodes: 32528
 ```
 
 
+# Conclusões
+Dentre os dois codigos o alpha-beta acaba sendo o melhor por conseguir filtrar os movimentos, gastando muito menos nodes que o min max. O algoritimo tambem acabou bastante simples ja que o jogo do galo tem apenas 3 condições de fim de jogo (vitoria, derrota e empate). Os valores que ambos algoritimos recebem são apenas -10 0 e 10, em um jogo mais complexo como xadrez, outras condições podem afetar o score de uma jogada. 
+
+Fontes utilizadas:
+https://www.youtube.com/watch?v=trKjYdBASyQ
+https://www.geeksforgeeks.org/finding-optimal-move-in-tic-tac-toe-using-minimax-algorithm-in-game-theory/
