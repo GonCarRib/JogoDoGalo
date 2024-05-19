@@ -1,5 +1,12 @@
 # Jogo do Galo
 
+### Para compilar
+```
+cd JogoDoGalo-main/src/main/java/org/example/
+javac Main.java
+```
+
+
 Jogo do galo é um jogo onde dois jogadores preenchem uma matriz 3x3 com um X ou um O, aquele que conseguir preencher 3 espaços adjacentes na horizontal, vertical ou diagonal ganha.
 
 No nosso codigo usamos uma matriz de strings com 9 possiveis posições
