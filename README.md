@@ -18,7 +18,7 @@ Foram utilizados dois algorítimos: **MinMax** e **AlphaBeta**
 
 ## MinMax
 
-O algorítimo MinMax vai simular jogadas para ambos jogadores e atribuir um valor para cada jogada para conseguir definir o que seria uma jogada optima. Para isso primeiro o algorítimo verifica se alguma condição de vitoria foi atingida, atribuindo um 10 para vitorias, um -10 para derrotas e um 0 para empate.  
+O algorítimo MinMax vai simular jogadas para ambos jogadores e atribuir um valor para cada jogada para conseguir definir o que seria uma jogada optima. Para isso primeiro o algorítimo verifica se alguma condição de vitoria foi atingida, atribuindo um 1 para vitorias, um -1 para derrotas e um 0 para empate.  
 Dependendo se o algorítimo esta procurando maximizar ou minimizar ele vai atribuir um valor impossível de se atingir normalmente, exemplo: Caso o algorítimo esteja maximizando ele vai atribuir um valor de -11 como o melhor valor possível. Agora qualquer valor que o algorítimo encontra vai sempre ser maior que -11 e ira substituir o valor de bestscore com o novo valor score encontrado.  
 O valor de score é encontrado quando o algorítimo simula uma jogada e verifica se o jogo atual contém alguma condição de vitoria.
 
@@ -136,7 +136,7 @@ Número de nodes: 32528
 
 # Conclusões
 
-Dentre os dois códigos o alpha-beta acaba sendo o melhor por conseguir filtrar os movimentos, gastando muito menos nodes que o min max. O algorítimo também acabou bastante simples já que o jogo do galo tem apenas 3 condições de fim de jogo (vitoria, derrota e empate). Os valores que ambos algorítimos recebem são apenas -10 0 e 10, em um jogo mais complexo como xadrez, outras condições podem afetar o score de uma jogada.
+Dentre os dois códigos o alpha-beta acaba sendo o melhor por conseguir filtrar os movimentos, gastando muito menos nodes que o min max. O algorítimo também acabou bastante simples já que o jogo do galo tem apenas 3 condições de fim de jogo (vitoria, derrota e empate). Os valores que ambos algorítimos recebem são apenas -1 0 e 1, em um jogo mais complexo como xadrez, outras condições podem afetar o score de uma jogada.
 
 Fontes utilizadas:  
 https://www.youtube.com/watch?v=trKjYdBASyQ  
